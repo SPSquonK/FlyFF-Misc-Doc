@@ -1,4 +1,4 @@
 # Executable links and architecture
 
-![](Graph.drawio)
+![](Graph.drawio.svg)
 
