@@ -2,10 +2,19 @@
 
 The list the methods of `CWndBase` and `CWndNeuz` that are actually used and has an empty definition:
 
-- `OnLButtonUp`, `OnLButtonDown`, `OnRButtonUp`, `OnRButtonDown`, `OnMButtonUp`, `OnMButtonDown`, `OnLButtonDblClk`, `OnRButtonDblClk`, `OnMButtonDblClk`
-- `OnNonClientLButtonDblClk`
+- `OnLButtonUp`
+- `OnLButtonDown`
+- `OnRButtonUp`
+- `OnRButtonDown`
+- `OnMButtonUp`
+- `OnMButtonDown`
+- `OnLButtonDblClk`
+- `OnRButtonDblClk`
+- `OnMButtonDblClk`
 - `OnMouseMove`
-- `OnChar`, `OnKeyUp`, `OnKeyDown`
+- `OnChar`
+- `OnKeyUp`
+- `OnKeyDown`
 - `OnDestroyChildWnd`
 - `OnSetFocus`
 - `OnMouseWndSurface`
@@ -24,31 +33,44 @@ functions with an empty body, you can remove the override method.
 
 ## Example
 
-- Base code (V15 style)
+- Base code: V15 style
 
 ```cpp
-class CWndMyConvolutedWindow : public CWndNeuz {
+class CWndConvoluted : public CWndNeuz {
 public:
   // things
   virtual void OnLButtonUp( UINT nFlags, CPoint point );
+  virtual BOOL OnCommand( UINT nID, DWORD dwMessage, CWndBase* pWndBase );
 };
 
-void CWndMyConvolutedWindow::OnLButtonUp( UINT nFlags, CPoint point ) {
+void CWndConvoluted::OnLButtonUp( UINT nFlags, CPoint point ) {
 
 }
+
+BOOL CWndConvoluted::OnCommand( UINT nID, DWORD dwMessage, CWndBase* pWndBase ) 
+{ 
+	return CWndNeuz::OnCommand( nID, dwMessage, pWndBase ); 
+}
+
 ```
 
-- Better (Use C++11 `override` specifier)
+- Better: Use C++11 `override` specifier
 
 ```cpp
-class CWndMyConvolutedWindow : public CWndNeuz {
+class CWndConvoluted : public CWndNeuz {
 public:
   // things
   void OnLButtonUp( UINT nFlags, CPoint point ) override;
+  BOOL OnCommand( UINT nID, DWORD dwMessage, CWndBase* pWndBase ) override;
 };
 
-void CWndMyConvolutedWindow::OnLButtonUp( UINT nFlags, CPoint point ) {
+void CWndConvoluted::OnLButtonUp( UINT nFlags, CPoint point ) {
 
+}
+
+BOOL CWndConvoluted::OnCommand( UINT nID, DWORD dwMessage, CWndBase* pWndBase ) 
+{ 
+	return CWndNeuz::OnCommand( nID, dwMessage, pWndBase ); 
 }
 ```
 
@@ -56,12 +78,28 @@ void CWndMyConvolutedWindow::OnLButtonUp( UINT nFlags, CPoint point ) {
 `void OnLButtonUp( UINT nFlags, CPoint point )` does not exist in one of the inherited
 class.*
 
-- Even better (`OnLButtonUp` is in the list because `CWndBase::OnLButtonUp` is empty)
+- Even better: `OnLButtonUp` is in the list because `CWndBase::OnLButtonUp` is empty, so
+it can be removed
 
 ```cpp
-class CWndMyConvolutedWindow : public CWndNeuz {
+class CWndConvoluted : public CWndNeuz {
+public:
+  // things
+  BOOL OnCommand( UINT nID, DWORD dwMessage, CWndBase* pWndBase ) override;
+};
+
+BOOL CWndConvoluted::OnCommand( UINT nID, DWORD dwMessage, CWndBase* pWndBase ) 
+{ 
+	return CWndNeuz::OnCommand( nID, dwMessage, pWndBase ); 
+}
+```
+
+- Final version: All `CWndMyConvolutedWindow::OnCommand` does is calling the
+method that is inherited, so it is useless to redefine it.
+
+```cpp
+class CWndConvoluted : public CWndNeuz {
 public:
   // things
 };
 ```
-
