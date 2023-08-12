@@ -2,6 +2,7 @@
 
 The list the methods of `CWndBase` and `CWndNeuz` that are actually used and has an empty definition:
 
+- `OnDraw`
 - `OnLButtonUp`
 - `OnLButtonDown`
 - `OnRButtonUp`
