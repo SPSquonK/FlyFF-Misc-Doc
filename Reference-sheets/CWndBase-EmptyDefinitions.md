@@ -1,6 +1,6 @@
 # `CWndBase`: Empty methods
 
-The list the methods of `CWndBase` and `CWndNeuz` that are actually used and has an empty definition:
+The list the methods of `CWndBase` and `CWndNeuz` that are actually used and have an empty definition:
 
 - `OnDraw`
 - `OnLButtonUp`
@@ -21,6 +21,11 @@ The list the methods of `CWndBase` and `CWndNeuz` that are actually used and has
 - `OnMouseWndSurface`
 - `OnMouseWheel` (return value is never used)
 - `AfterSkinTexture`
+- `OnCommand` only returns `TRUE`
+
+*Maybe*:
+- `OnChildNotify` only if you inherit from `CWndBase` and not from `CwndNeuz`
+- `OnNonClientLButtonDblClk` only if you inherit from `CWndBase` and not from `CwndNeuz`
 
 
 ## Why does it matter?
