@@ -6,4 +6,4 @@ The studied architecture is the V15 architecture.
 
 - [Executables, links and cardinalities](Executables-Links-Cardinalities)
 - [Reference sheets](Reference-sheets)
-
+- [Short notes](Short-notes.md)
